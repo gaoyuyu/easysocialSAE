@@ -68,10 +68,12 @@ class UserController extends ApplicationController
             $am->add($account);
             if($am->getDbError())
             {
+                $am->rollback();
                 $this->returnResponseError("内部错误，请重试");
             }
             else
             {
+                $am->commit();
                 $this->returnResponseOK("注册成功");
             }
         }
